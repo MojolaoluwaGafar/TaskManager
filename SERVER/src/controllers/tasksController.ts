@@ -1,5 +1,7 @@
-import { Request, Response } from "express";
-import * as TaskModel from "../models/taskModel";
+import { log } from "console";
+
+const { Request, Response } =require("express");
+const TaskModel = require("../models/taskModel");
 
 export const getTasks = async (req: Request, res: Response) => {
   const tasks = await TaskModel.getAllTasks();
@@ -10,6 +12,8 @@ export const addTask = async (req: Request, res: Response) => {
   const { title } = req.body;
   const task = await TaskModel.createTask(title);
   res.json(task);
+  console.log(task);
+  
 };
 
 export const updateTask = async (req: Request, res: Response) => {

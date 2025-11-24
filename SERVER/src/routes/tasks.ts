@@ -1,5 +1,5 @@
-import express from "express";
-import { getTasks, addTask, updateTask, removeTask } from "../controllers/tasksController";
+const express =require("express");
+const { getTasks, addTask, updateTask, removeTask } = require("../controllers/tasksController.ts");
 
 const router = express.Router();
 
@@ -8,4 +8,4 @@ router.post("/", addTask);
 router.patch("/:id", updateTask);
 router.delete("/:id", removeTask);
 
-export default router;
+module.exports= router;
