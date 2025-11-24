@@ -1,31 +1,38 @@
 import React, { useState } from "react";
 import TaskItem from "../components/TaskItem";
 import type { Task } from "../types/Task"
+import api from "../Services/Api"
 
 export default function Tasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [value, setValue] = useState("");
 
-  const addTask = () => {
-    if (value.trim() === "") return;
+  const fetchTasks = async () => {
+  const res = await api.get("/");
+  setTasks(res.data);
+};
 
-    const newTask: Task = {
-      id: crypto.randomUUID(),
-      title: value,
-      completed: false,
-    };
+const addTask = async () => {
+  if (!value.trim()) return;
+  await api.post("/", { title: value });
+  setValue("");
+  fetchTasks();
+};
 
-    setTasks([newTask, ...tasks]);
-    setValue("");
-  };
+const toggleTask = async (id: string, completed: boolean) => {
+  await api.patch(`/${id}`, { completed: !completed });
+  fetchTasks();
+};
 
-  const deleteTask = (id: string) => setTasks(tasks.filter(t => t.id !== id));
+const editTask = async (id: string, newTitle: string) => {
+  await api.patch(`/${id}`, { title: newTitle });
+  fetchTasks();
+};
 
-  const toggleTask = (id: string) =>
-    setTasks(tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
-
-  const editTask = (id: string, newTitle: string) =>
-    setTasks(tasks.map(t => t.id === id ? { ...t, title: newTitle } : t));
+const deleteTask = async (id: string) => {
+  await api.delete(`/${id}`);
+  fetchTasks();
+};
 
   return (
     <div className="p-6">
