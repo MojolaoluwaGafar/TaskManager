@@ -1,5 +1,5 @@
 import React from "react";
-import type { Task } from "../types";
+import type { Task } from "../types/Task";
 import { useNavigate } from "react-router";
 
 type Props = {

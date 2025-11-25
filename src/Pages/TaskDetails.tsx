@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import taskAPI from "../Services/Api";
-import type { Task } from "../types";
+import type { Task } from "../types/Task";
 
 export default function TaskDetails() {
   const { id } = useParams();
