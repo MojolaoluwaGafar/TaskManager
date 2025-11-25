@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import TaskItem from "../components/TaskItem";
-import type { Task } from "../types/Task";
+import type { Task } from "../types";
 import taskAPI from "../Services/Api";
 
 export default function Tasks() {
