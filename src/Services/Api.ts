@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const taskAPI = axios.create({
-  baseURL: "http://localhost:5000/api/tasks",
+  baseURL: "https://taskmanagerserver-zw50.onrender.com/api/tasks",
 });
 
 export default taskAPI;
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api/users",
+  baseURL: "https://taskmanagerserver-zw50.onrender.com/api/users",
 });
 
 export const signUp = (data: { name: string; email: string; password: string }) =>
