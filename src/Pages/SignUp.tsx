@@ -10,14 +10,15 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await signUp({ name, email, password });
-      navigate("/signin");
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Something went wrong");
-    }
-  };
+  e.preventDefault();
+  try {
+    await signUp({ name, email, password });
+    navigate("/signin");
+  } catch (err: any) {
+    setError(err.response?.data?.error || "Something went wrong");
+  }
+};
+
 
   return (
     <div className="max-w-md mx-auto mt-20 p-6 bg-gray-900 rounded text-white">

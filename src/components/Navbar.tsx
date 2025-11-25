@@ -7,7 +7,7 @@ type User = {
   avatar?: string;
 };
 
-export default function Navbar({ title = "TaskManager" }: { title?: string }) {
+export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
 
@@ -28,9 +28,9 @@ export default function Navbar({ title = "TaskManager" }: { title?: string }) {
 
   return (
     <nav className="w-full flex items-center justify-between px-8 py-8 bg-black text-white shadow">
-      <h1 className="text-xl font-semibold tracking-wide">
+      {/* <h1 className="text-xl font-semibold tracking-wide">
         {title}
-      </h1>
+      </h1> */}
 
       <ul className="flex items-center gap-6 text-sm">
         {/* <li>
@@ -38,11 +38,11 @@ export default function Navbar({ title = "TaskManager" }: { title?: string }) {
             Home
           </Link>
         </li> */}
-        <li>
+        {/* <li>
           <Link to="/" className="text-lg font-semibold cursor-pointer hover:opacity-70 transition">
             Tasks
           </Link>
-        </li>
+        </li> */}
         {user ? (
           <>
             <li className="flex items-center gap-2">
