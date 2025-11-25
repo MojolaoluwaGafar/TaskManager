@@ -1,52 +1,61 @@
-import React, { useState } from "react";
-import type {Task } from "../types/Task";
+import React from "react";
+import type { Task } from "../types/Task";
+import { useNavigate } from "react-router";
 
 type Props = {
   task: Task;
   onDelete: (id: string) => void;
-  onToggle: (id: string) => void;
-  onEdit: (id: string, newTitle: string) => void;
-}
+  onToggle: (id: string, completed: boolean) => void;
+};
 
-export default function TaskItem({ task, onDelete, onToggle, onEdit }: Props) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState(task.title);
+export default function TaskItem({ task, onDelete, onToggle }: Props) {
+  const navigate = useNavigate();
 
-  const handleEdit = () => {
-    if (isEditing && value.trim() !== "") {
-      onEdit(task.id, value);
-    }
-    setIsEditing(!isEditing);
+  const openDetails = () => {
+    navigate(`/task/${task.id}`);
+  };
+
+  const goToEdit = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigate(`/task/${task.id}/edit`);
+  };
+
+  const toggleCompletion = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onToggle(task.id, task.completed);
   };
 
   return (
-    <div className="flex items-center justify-between bg-gray-100 p-3 rounded mb-2">
-      {isEditing ? (
+    <div
+      className="flex items-center justify-between bg-white shadow-sm border rounded-xl p-4 mb-3 hover:shadow-md transition cursor-pointer"
+      onClick={openDetails}
+    >
+      <div className="flex-1 flex items-center gap-3">
         <input
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          className="p-2 border rounded"
+          type="checkbox"
+          checked={task.completed}
+          onClick={toggleCompletion}
+          className="w-5 h-5 cursor-pointer"
         />
-      ) : (
-        <p
-          className={`cursor-pointer ${task.completed ? "line-through text-gray-400" : ""}`}
-          onClick={() => onToggle(task.id)}
-        >
+        <p className={`text-lg ${task.completed ? "line-through text-gray-400" : "text-gray-800"}`}>
           {task.title}
         </p>
-      )}
+      </div>
 
       <div className="flex gap-2">
         <button
-          onClick={handleEdit}
-          className="bg-blue-500 text-white px-3 py-1 rounded"
+          onClick={goToEdit}
+          className="px-3 py-1 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition"
         >
-          {isEditing ? "Save" : "Edit"}
+          Edit
         </button>
 
         <button
-          onClick={() => onDelete(task.id)}
-          className="bg-red-500 text-white px-3 py-1 rounded"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete(task.id);
+          }}
+          className="px-3 py-1 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
         >
           Delete
         </button>

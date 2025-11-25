@@ -20,8 +20,8 @@ export default function Edit() {
   }, []);
 
   const updateTask = async () => {
-    await api.put(`/${id}`, { title });
-    navigate("/tasks");
+    await api.patch(`/${id}`, { title });;
+    navigate("/");
   };
 
   return (
