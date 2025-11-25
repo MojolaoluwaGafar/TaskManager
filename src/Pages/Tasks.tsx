@@ -65,7 +65,7 @@ export default function Tasks() {
 
   // debounce search
   const debounce = (func: Function, delay: number) => {
-    let timeout: NodeJS.Timeout;
+    let timeout: ReturnType<typeof setTimeout>;
     return (...args: any) => {
       if (timeout) clearTimeout(timeout);
       timeout = setTimeout(() => func(...args), delay);

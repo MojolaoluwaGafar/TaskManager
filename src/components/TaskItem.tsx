@@ -6,6 +6,7 @@ type Props = {
   task: Task;
   onDelete: (id: string) => void;
   onToggle: (id: string, completed: boolean) => void;
+  onEdit: (id: string, newTitle: string) => void;
 };
 
 export default function TaskItem({ task, onDelete, onToggle }: Props) {
